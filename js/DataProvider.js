@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {ActivityIndicator} from 'react-native';
 
-import {UsersList} from './UsersList';
 
 export default class DataProvider extends Component {
 
@@ -25,7 +23,7 @@ export default class DataProvider extends Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    data: [...this.state.data, ...data.map(item => ({...item, id: item.id + page*10}))],
+                    data: [...this.state.data, ...data.map(item => ({...item, id: item.id + page * 10}))],
                     isLoading: false
                 });
             })
@@ -33,20 +31,11 @@ export default class DataProvider extends Component {
     }
 
     render() {
-        // if (this.state.isLoading) {
-        //     return (
-        //         <ActivityIndicator animating={true} size="small" color="black"/>
-        //     );
-        // } else {
-        //     return (
-        //         <UsersList userList={this.state.data} isLoading={this.state.isLoading}
-        //         loadingNextPage={() => this.fetchData(this.state.page + 1)}/>
-        //     );
-        // }
         return this.props.children({
             isLoading: this.state.isLoading,
             data: this.state.data,
-            loadingNextPage: () => this.fetchData(this.state.page + 1)})
+            loadingNextPage: () => this.fetchData(this.state.page + 1)
+        })
     }
 }
 

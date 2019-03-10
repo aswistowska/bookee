@@ -13,11 +13,11 @@ import {UserListContainer} from "./js/UserListContainer";
 
 type Props = {};
 export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={{paddingTop: 30}}>
-        <UserListContainer/>
-      </View>
-    );
-  }
+    render() {
+        return (
+            <View style={{paddingTop: 30}}>
+                <UserListContainer/>
+            </View>
+        );
+    }
 }
