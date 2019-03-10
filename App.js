@@ -8,15 +8,15 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import UsersList from "./js/UsersList";
+import {View} from 'react-native';
+import UsersListContainer from "./js/UsersListContainer";
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
       <View style={{paddingTop: 30}}>
-        <UsersList/>
+        <UsersListContainer/>
       </View>
     );
   }

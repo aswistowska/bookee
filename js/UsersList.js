@@ -2,41 +2,16 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button, ActivityIndicator, FlatList} from 'react-native';
 
 
-export default class UsersList extends Component {
+export const UsersList = ({userList, isLoading, loadingNextPage}) => {
 
-    constructor() {
-        super();
-        this.state = {
-            data: [],
-            isLoading: true,
-            page: 0,
-        };
-    }
-
-    componentDidMount() {
-        this.fetchData(this.state.page);
-    }
-
-    fetchData(page) {
-        this.setState({page: page});
-        let endpoint = 'https://jsonplaceholder.typicode.com/users';
-        fetch(endpoint)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({data: [...this.state.data, ...data.map(item => ({...item, id: item.id + page*10}))], isLoading: false});
-            })
-            .catch(error => console.log(`Error fetching JSON: ${error}`));
-    }
-
-    render() {
-        if (this.state.isLoading) {
+        if (isLoading) {
             return (
                 <ActivityIndicator animating={true} size="small" color="black"/>
             );
         } else {
             return (
                 <FlatList
-                    data={this.state.data}
+                    data={userList}
                     renderItem={({item}) =>
                         <View style={styles.container}>
                             <View style={styles.listItem}>
@@ -44,15 +19,15 @@ export default class UsersList extends Component {
                                 <Text>{item.id}</Text>
                             </View>
                             <Button onPress={() => alert(item.name)}
-                                    title='Name'/>
+                                    title='Name'
+                                    color="#841584"/>
                         </View>}
                     keyExtractor={item => `${item.id}`}
-                    onEndReached={() => this.fetchData(this.state.page + 1)}
+                    onEndReached={loadingNextPage}
                 />
             );
         }
-    }
-}
+    };
 
 
 const styles = StyleSheet.create({
