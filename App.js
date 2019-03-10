@@ -9,14 +9,14 @@
 
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import UsersListContainer from "./js/UsersListContainer";
+import {UserListContainer} from "./js/UserListContainer";
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
       <View style={{paddingTop: 30}}>
-        <UsersListContainer/>
+        <UserListContainer/>
       </View>
     );
   }

@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button, ActivityIndicator, FlatList} from 'react-native';
+import React from 'react';
+import { View, Text, Button, ActivityIndicator, FlatList} from 'react-native';
 
+import {styles} from './styles';
 
 export const UsersList = ({userList, isLoading, loadingNextPage}) => {
 
@@ -30,20 +31,3 @@ export const UsersList = ({userList, isLoading, loadingNextPage}) => {
     };
 
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: 'grey',
-    },
-    listItem: {
-        flex: 2,
-        padding: 10
-    },
-    listButton: {
-        flex: 1,
-    }
-});

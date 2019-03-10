@@ -3,7 +3,7 @@ import {ActivityIndicator} from 'react-native';
 
 import {UsersList} from './UsersList';
 
-export default class UsersListContainer extends Component {
+export default class DataProvider extends Component {
 
     constructor() {
         super();
@@ -20,7 +20,7 @@ export default class UsersListContainer extends Component {
 
     fetchData(page) {
         this.setState({page: page});
-        let endpoint = 'https://jsonplaceholder.typicode.com/users';
+        let endpoint = `https://jsonplaceholder.typicode.com/${this.props.source}`;
         fetch(endpoint)
             .then(response => response.json())
             .then(data => {
@@ -33,16 +33,20 @@ export default class UsersListContainer extends Component {
     }
 
     render() {
-        if (this.state.isLoading) {
-            return (
-                <ActivityIndicator animating={true} size="small" color="black"/>
-            );
-        } else {
-            return (
-                <UsersList userList={this.state.data} isLoading={this.state.isLoading}
-                loadingNextPage={() => this.fetchData(this.state.page + 1)}/>
-            );
-        }
+        // if (this.state.isLoading) {
+        //     return (
+        //         <ActivityIndicator animating={true} size="small" color="black"/>
+        //     );
+        // } else {
+        //     return (
+        //         <UsersList userList={this.state.data} isLoading={this.state.isLoading}
+        //         loadingNextPage={() => this.fetchData(this.state.page + 1)}/>
+        //     );
+        // }
+        return this.props.children({
+            isLoading: this.state.isLoading,
+            data: this.state.data,
+            loadingNextPage: () => this.fetchData(this.state.page + 1)})
     }
 }
 
