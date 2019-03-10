@@ -9,15 +9,21 @@ export default class UsersList extends Component {
         this.state = {
             data: [],
             isLoading: true,
+            page: 0,
         };
     }
 
     componentDidMount() {
+        this.fetchData(this.state.page);
+    }
+
+    fetchData(page) {
+        this.setState({page: page});
         let endpoint = 'https://jsonplaceholder.typicode.com/users';
         fetch(endpoint)
             .then(response => response.json())
             .then(data => {
-                this.setState({data, isLoading: false});
+                this.setState({data: [...this.state.data, ...data.map(item => ({...item, id: item.id + page*10}))], isLoading: false});
             })
             .catch(error => console.log(`Error fetching JSON: ${error}`));
     }
@@ -41,6 +47,7 @@ export default class UsersList extends Component {
                                     title='Name'/>
                         </View>}
                     keyExtractor={item => `${item.id}`}
+                    onEndReached={() => this.fetchData(this.state.page + 1)}
                 />
             );
         }
